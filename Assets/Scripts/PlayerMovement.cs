@@ -18,10 +18,17 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
     private void Move()
     {
         _xDirection = Input.GetAxis("Horizontal");
 
-        _rigidbody.velocity = Vector2.right * _xDirection * Speed;
+        var motion = new Vector2(_xDirection * Speed, _rigidbody.velocity.y);
+
+        _rigidbody.velocity = motion;
     }
 }
