@@ -25,8 +25,8 @@ public class Shooting : MonoBehaviour
 
         bulletTransform.GetComponent<Bullet>().Setup(shoot_dir);
     }
-    public void FlipShootingPos()
+    public void FlipShootingPos(int gravity)
     {
-        posY *= -1;
+        posY *= gravity;
     }
 }

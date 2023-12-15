@@ -7,12 +7,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [field: SerializeField]
     public float Speed { get; set; } = 5f;
-  //  public event ProjectileEvents.OnSurfaceProjectileHit OnSurfaceHit;
+    //  public event ProjectileEvents.OnSurfaceProjectileHit OnSurfaceHit;
 
-
-    public float TotalTime = 1f;
-    private bool status;
+    private float  TotalTime = 1f;
     private float timer = 0;
+    private bool status;
+    
 
     private Rigidbody2D _rigidbody;
     private float _xDirection = 0;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     // Значение гравитации менять только 1 и -1, 0 не ставить, остальные в принципе всё равно
     // Это сделано, чтоб со стрельбой, да и вообще было проще
     private int gravity = 1;
-    private void Awake()
+    private void Start()
     {
 
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -35,25 +35,26 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Debug.DrawLine(transform.position, (transform.position + Vector3.up), Color.red);
-        Move();
+        
 
-
-       
 
         if (status)
         {
-            timer += Time.deltaTime;
+            timer -= Time.fixedDeltaTime;
+            if (timer <= 0)
+            {
+                timer = 0;
+                status = false;
+            }
         }
-        if (timer > TotalTime)
-        {
-
-            status = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !status) 
+        
+        if (Input.GetKeyDown(KeyCode.E) && !status) 
         {   
             Shoot();
+            timer = TotalTime;
+            status = true;
         }
-
+        Move();
     }
 
     private void Move()
@@ -71,32 +72,33 @@ public class PlayerMovement : MonoBehaviour
 
         
         _shooting.OnShooting(gravity);
-        status = true;
+        
         
     }
 
     private void Teleport(Bullet sender, Collision2D collision)
     {
         gameObject.transform.position = sender.transform.position - (sender.shoot_dir.normalized * 0.5f);
-        if ((collision.collider.CompareTag("Roof") && !flipped) )
+        if (collision.collider.CompareTag("Roof"))
         {
             flipped = true;
-            GravityFlip();
+            GravityFlip(-1);
         }
-        if (collision.collider.CompareTag("Surface") && flipped)
+        if (collision.collider.CompareTag("Surface"))
         {
             flipped = false;
-            GravityFlip();
+
+            
         }
     }
 
-    private void GravityFlip()
+    private void GravityFlip(int _gravity)
     {
         
 
-        gravity *= -1;
-            _rigidbody.gravityScale *= gravity;
-            _shooting.FlipShootingPos();
+            gravity *= _gravity;
+            _rigidbody.gravityScale *= _gravity;
+            _shooting.FlipShootingPos(_gravity);
             
     }
 

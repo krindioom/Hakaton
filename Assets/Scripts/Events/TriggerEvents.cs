@@ -6,8 +6,7 @@ using UnityEngine;
 public class TriggerEvents : MonoBehaviour
 {
     public delegate void OnMirrorTouch(object sender, Collision2D collision);
-    public event OnMirrorTouch OnMirrorEnter;
-    public event OnMirrorTouch OnMirrorExit;
+
 
 
 }
