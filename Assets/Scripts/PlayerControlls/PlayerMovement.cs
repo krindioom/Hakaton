@@ -7,11 +7,12 @@ public class PlayerMovement : MonoBehaviour
 {
     [field: SerializeField]
     public float Speed { get; set; } = 5f;
-
+    
 
     private Rigidbody2D _rigidbody;
     private float _xDirection = 0;
     private Shooting _shooting;
+
 
     // Значение гравитации менять только 1 и -1, 0 не ставить, остальные в принципе всё равно
     // Это сделано, чтоб со стрельбой, да и вообще было проще
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _shooting = GetComponent<Shooting>();
+
     }
 
     private void FixedUpdate()
