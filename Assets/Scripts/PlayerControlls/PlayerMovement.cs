@@ -79,16 +79,16 @@ public class PlayerMovement : MonoBehaviour
     private void Teleport(Bullet sender, Collision2D collision)
     {
         gameObject.transform.position = sender.transform.position - (sender.shoot_dir.normalized * 0.5f);
-        if (collision.collider.CompareTag("Roof"))
+        if (collision.collider.CompareTag("Roof") && !flipped)
         {
             flipped = true;
             GravityFlip(-1);
         }
-        if (collision.collider.CompareTag("Surface"))
+        if (collision.collider.CompareTag("Surface") && flipped)
         {
             flipped = false;
+            GravityFlip(-1);
 
-            
         }
     }
 
