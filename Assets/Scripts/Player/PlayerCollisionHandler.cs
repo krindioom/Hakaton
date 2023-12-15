@@ -14,7 +14,15 @@ public class PlayerCollisionHandler : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Obstacle component))
         {
-            component.Accept(_playerObstacleVisitor);
+            component.AcceptEnter(_playerObstacleVisitor);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Obstacle component))
+        {
+            component.AcceptExit(_playerObstacleVisitor);
         }
     }
 }

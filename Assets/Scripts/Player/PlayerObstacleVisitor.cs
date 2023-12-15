@@ -2,18 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerConfiguration))]
 public class PlayerObstacleVisitor : ObstacleVisitor
 {
-    private Rigidbody2D _rigidBody;
+    [SerializeField]
+    private float _slip = 2f;
+
+    private PlayerMovement _playerMovement;
+
+    private PlayerConfiguration _playerConfiguration;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        _playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    private void Start()
+    {
+        _playerConfiguration = GetComponent<PlayerConfiguration>();
     }
 
     public override void VisitRampObstacle(RampObstacle rampObstacle)
     {
-        Debug.Log("rampVisited");
+        _playerMovement.Speed = _playerConfiguration.Speed * _slip;
+    }
+
+    public override void VisitRampObstacleExit(RampObstacle rampObstacle)
+    {
+        _playerMovement.Speed = _playerConfiguration.Speed;
+    }
+
+    public override void VisitRampObstacleStay(RampObstacle rampObstacle)
+    {
+        
     }
 }
