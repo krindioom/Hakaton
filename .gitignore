@@ -46,3 +46,4 @@ Thumbs.db
 /Logs/AssetImportWorker1.log
 /Logs/shadercompiler-AssetImportWorker0.log
 /Logs/shadercompiler-UnityShaderCompiler.exe0.log
+*.log
