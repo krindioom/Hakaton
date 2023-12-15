@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float _xDirection = 0;
     private Shooting _shooting;
 
+    private float start_time = 0f;
 
     // Значение гравитации менять только 1 и -1, 0 не ставить, остальные в принципе всё равно
     // Это сделано, чтоб со стрельбой, да и вообще было проще

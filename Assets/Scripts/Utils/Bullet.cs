@@ -46,8 +46,7 @@ public class Bullet : MonoBehaviour
         if (collision.collider.CompareTag("Mirror"))
         {
             shoot_dir = Vector3.Reflect(shoot_dir, collision.GetContact(0).normal);
-            float rotationZ = Utilities.GetAngleFromVectorFloat(shoot_dir);
-            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+            
         }
         if (collision.collider.CompareTag("ForceField"))
         {
@@ -59,6 +58,8 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.position += shoot_speed * Time.deltaTime * shoot_dir;
+        float rotationZ = Utilities.GetAngleFromVectorFloat(shoot_dir);
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
     }
 
 

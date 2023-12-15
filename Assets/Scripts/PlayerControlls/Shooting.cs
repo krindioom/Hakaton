@@ -8,7 +8,9 @@ public class Shooting : MonoBehaviour
 
     [SerializeField]
     private Transform pfBullet;
-    
+
+    private float initial_time = 0;
+
 
     void Update()
     {
