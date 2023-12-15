@@ -7,9 +7,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public event ProjectileEvents.OnSurfaceProjectileHit OnSurfaceHit;
+    public static event ProjectileEvents.OnSurfaceProjectileHit OnSurfaceHit;
 
-    private Vector3 shoot_dir;
+    public Vector3 shoot_dir;
     private float shoot_speed = 10f;
     
 
@@ -22,15 +22,7 @@ public class Bullet : MonoBehaviour
 
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Surface"))
-    //    {
-    //        Debug.Log("Есть контакт!");
-    //        OnSurfaceHit?.Invoke(this, collision);
-    //    }
-    //    if (collision.CompareTag("Mirror"))
-    //    {
+
 
 
 
@@ -38,7 +30,7 @@ public class Bullet : MonoBehaviour
     //}
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Surface"))
+        if (collision.collider.CompareTag("Surface") || collision.collider.CompareTag("Roof"))
         {
             OnSurfaceHit?.Invoke(this, collision);
             Destroy(gameObject);
@@ -55,7 +47,7 @@ public class Bullet : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.position += shoot_speed * Time.deltaTime * shoot_dir;
         float rotationZ = Utilities.GetAngleFromVectorFloat(shoot_dir);

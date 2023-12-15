@@ -9,11 +9,12 @@ TagManager:
   - Mirror
   - ForceField
   - Grid
+  - Roof
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Surface

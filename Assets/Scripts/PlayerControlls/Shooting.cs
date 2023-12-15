@@ -9,13 +9,13 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private Transform pfBullet;
 
-    private float initial_time = 0;
+    private float posY = 0.7f;
 
 
-    void Update()
+    void FixedUpdate()
     {
         
-        shooting_pos = transform.position + new Vector3(0,0.7f);
+        shooting_pos = transform.position + new Vector3(0,posY);
     }
 
     public void OnShooting(int up_or_down)
@@ -25,5 +25,8 @@ public class Shooting : MonoBehaviour
 
         bulletTransform.GetComponent<Bullet>().Setup(shoot_dir);
     }
-
+    public void FlipShootingPos()
+    {
+        posY *= -1;
+    }
 }
