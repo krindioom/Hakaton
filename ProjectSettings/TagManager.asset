@@ -9,6 +9,7 @@ TagManager:
   - Mirror
   - ForceField
   - Grid
+  - Note
   layers:
   - Default
   - TransparentFX
