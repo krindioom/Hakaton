@@ -9,7 +9,7 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private Transform pfBullet;
 
-    private float posY = 0.7f;
+    private float posY = 0.5f;
 
 
     void FixedUpdate()

@@ -9,9 +9,11 @@ public class GateActivator : MonoBehaviour
     Gate gate;
 
     [SerializeField]
-    Animation on_state;
+    Animator Activator_state;
     [SerializeField]
-    Animation off_state;
+    private string On_state;
+    [SerializeField]
+    private string Off_state;
 
     protected bool _activated = false;
 
@@ -23,13 +25,13 @@ public class GateActivator : MonoBehaviour
     }
     public virtual void GateActivate()
     {
-        if (_activated) on_state.Play();
+        if (_activated) Activator_state.Play(On_state);
         gate.GateOpen();
 
     }
     public virtual void GateDeactivate()
     {
-        if (!_activated) off_state.Play();
+        if (!_activated) Activator_state.Play(Off_state);
         gate.GateClose();
 
     }

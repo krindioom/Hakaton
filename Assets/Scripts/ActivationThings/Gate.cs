@@ -6,10 +6,11 @@ public class Gate : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    Animation Close_state;
+    Animator Gate_state;
     [SerializeField]
-    Animation Open_state;
-
+    private string Open_state;
+    [SerializeField]
+    private string Close_state;
 
     private bool _state = false;
 
@@ -21,13 +22,13 @@ public class Gate : MonoBehaviour
 
     public virtual void GateOpen()
     {
-        Open_state.Play();
+        Gate_state.Play(Open_state);
         _state = true;
 
     }
     public virtual void GateClose()
     {
-        Close_state.Play();
+        Gate_state.Play(Close_state);
         _state = false;
     }
     public bool GetGateState()

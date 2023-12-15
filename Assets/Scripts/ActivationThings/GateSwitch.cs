@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class GateSwitch : GateActivator
 {
-    
 
-    private void OnCollisionEnter()
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_activated)
+        if (collision.collider.CompareTag("Player"))
         {
-            GateActivate();
-            activationSwitch();
-        }
-        else 
-        {
-            GateDeactivate();
-            activationSwitch();
+            if (_activated)
+            {
+                GateActivate();
+                activationSwitch();
+            }
+            else
+            {
+                GateDeactivate();
+                activationSwitch();
+            }
         }
     }
-
 }
