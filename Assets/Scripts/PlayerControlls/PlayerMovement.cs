@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [field: SerializeField]
     public float Speed { get; set; } = 5f;
-    //  public event ProjectileEvents.OnSurfaceProjectileHit OnSurfaceHit;
 
-    private float  TotalTime = 1f;
+
+    private float TotalTime = 1f;
     private float timer = 0;
     private bool status;
     
