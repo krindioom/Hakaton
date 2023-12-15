@@ -7,16 +7,16 @@ public class TriggerEvents : MonoBehaviour
 {
     public event EventHandler<OnTouchEventArgs> OnSurfaceTouch;
     public event EventHandler<OnTouchEventArgs> OnSlidingTouch;
-    public event EventHandler<OnTouchEventArgs> OnPowerFieldTouch;
+
 
     public event EventHandler<OnTouchEventArgs> OnSurfaceUnTouch;
     public event EventHandler<OnTouchEventArgs> OnSlidingUnTouch;
-    public event EventHandler<OnTouchEventArgs> OnPowerFieldUnTouch;
+
 
     public event EventHandler<OnActiovationEventArgs> OnActivationEnter;
-    
 
-
+    public event EventHandler<OnTouchEventArgs> OnSurfaceHitByProjectile;
+    public event EventHandler<OnTouchEventArgs> OnSlidingHitByProjectile;
 
     public class OnTouchEventArgs : EventArgs
     {
