@@ -6,29 +6,28 @@ public class Gate : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    Sprite Close_state;
+    Animation Close_state;
     [SerializeField]
-    Sprite Open_state;
-    SpriteRenderer _renderer;
+    Animation Open_state;
+
 
     private bool _state = false;
 
 
     private void Start()
-    {_renderer = gameObject.GetComponent<SpriteRenderer>();
-        
-        _renderer.sprite = Close_state;
+    {
+       
     }
 
     public virtual void GateOpen()
     {
-        _renderer.sprite = Open_state;
+        Open_state.Play();
         _state = true;
 
     }
     public virtual void GateClose()
     {
-        _renderer.sprite = Close_state;
+        Close_state.Play();
         _state = false;
     }
     public bool GetGateState()
