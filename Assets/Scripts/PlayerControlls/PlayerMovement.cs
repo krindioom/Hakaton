@@ -1,40 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static Bullet; 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [field: SerializeField]
     public float Speed { get; set; } = 5f;
+
+
+    private float TotalTime = 1f;
+    private float timer = 0;
+    private bool status;
     
 
     private Rigidbody2D _rigidbody;
     private float _xDirection = 0;
     private Shooting _shooting;
 
-    private float start_time = 0f;
+    private bool flipped = false;
+
 
     // Значение гравитации менять только 1 и -1, 0 не ставить, остальные в принципе всё равно
     // Это сделано, чтоб со стрельбой, да и вообще было проще
     private int gravity = 1;
-    private void Awake()
+    private void Start()
     {
+
         _rigidbody = GetComponent<Rigidbody2D>();
         _shooting = GetComponent<Shooting>();
-
+        OnSurfaceHit += Teleport;
     }
 
     private void FixedUpdate()
     {
-        Debug.DrawLine(transform.position, new Vector3(0, 0.7f), Color.red);
-        Move();
+        Debug.DrawLine(transform.position, (transform.position + Vector3.up), Color.red);
+        
 
-        if (Input.GetKeyDown(KeyCode.Space)) 
+
+        if (status)
         {
-            Shoot();
+            timer -= Time.fixedDeltaTime;
+            if (timer <= 0)
+            {
+                timer = 0;
+                status = false;
+            }
         }
-
+        
+        if (Input.GetKeyDown(KeyCode.E) && !status) 
+        {   
+            Shoot();
+            timer = TotalTime;
+            status = true;
+        }
+        Move();
     }
 
     private void Move()
@@ -49,6 +69,40 @@ public class PlayerMovement : MonoBehaviour
     
     private void Shoot()
     {
+
+        
         _shooting.OnShooting(gravity);
+        
+        
     }
+
+    private void Teleport(Bullet sender, Collision2D collision)
+    {
+        gameObject.transform.position = sender.transform.position - (sender.shoot_dir.normalized * 0.3f);
+        if (collision.collider.CompareTag("Roof") && !flipped)
+        {
+            flipped = true;
+            GravityFlip(-1);
+        }
+        if (collision.collider.CompareTag("Surface") && flipped)
+        {
+            flipped = false;
+            GravityFlip(-1);
+
+        }
+    }
+
+    private void GravityFlip(int _gravity)
+    {
+        
+
+            gravity *= _gravity;
+            _rigidbody.gravityScale *= _gravity;
+            _shooting.FlipShootingPos(_gravity);
+            
+    }
+
+
+
+
 }
