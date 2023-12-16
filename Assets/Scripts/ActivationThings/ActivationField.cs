@@ -6,12 +6,20 @@ public class ActivationField : GateActivator
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GateActivate();
-        activationSwitch();
+        
+        if (collision.collider.CompareTag("Player"))
+        {
+            GateActivate();
+            activationSwitch();
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        GateDeactivate();
-        activationSwitch();
+        if (collision.collider.CompareTag("Player"))
+        {
+            GateDeactivate();
+            activationSwitch();
+        }
+        
     }
 }
