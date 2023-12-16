@@ -1,34 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gate : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    Animator Gate_state;
+    UnityEvent Open_state;
     [SerializeField]
-    private string Open_state;
-    [SerializeField]
-    private string Close_state;
+    UnityEvent Close_state;
+
 
     private bool _state = false;
 
 
-    private void Start()
-    {
-       
-    }
+
 
     public virtual void GateOpen()
     {
-        Gate_state.Play(Open_state);
+        Open_state.Invoke() ;
         _state = true;
 
     }
     public virtual void GateClose()
     {
-        Gate_state.Play(Close_state);
+        Close_state.Invoke();
         _state = false;
     }
     public bool GetGateState()

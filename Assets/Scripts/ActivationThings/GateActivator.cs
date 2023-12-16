@@ -1,19 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class GateActivator : MonoBehaviour
 {
     [SerializeField]
     Gate gate;
 
-    [SerializeField]
-    Animator Activator_state;
-    [SerializeField]
-    private string On_state;
-    [SerializeField]
-    private string Off_state;
+
+    public UnityEvent on_actions;
+
+    public UnityEvent off_acitons;
 
     protected bool _activated = false;
 
@@ -25,13 +24,13 @@ public class GateActivator : MonoBehaviour
     }
     public virtual void GateActivate()
     {
-        if (_activated) Activator_state.Play(On_state);
+        if (_activated) on_actions.Invoke(); ;
         gate.GateOpen();
 
     }
     public virtual void GateDeactivate()
     {
-        if (!_activated) Activator_state.Play(Off_state);
+        if (!_activated) off_acitons.Invoke() ;
         gate.GateClose();
 
     }

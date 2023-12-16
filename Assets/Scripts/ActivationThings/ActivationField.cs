@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ActivationField : GateActivator
 {
-    private void OnCollisionEnter()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         GateActivate();
         activationSwitch();
     }
-    private void OnCollisionExit()
+    private void OnCollisionExit2D(Collision2D collision)
     {
         GateDeactivate();
         activationSwitch();
